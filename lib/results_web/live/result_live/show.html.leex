@@ -1,0 +1,27 @@
+<h1>Show Result</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, ResultsWeb.ResultLive.FormComponent,
+    id: @result.id,
+    title: @page_title,
+    action: @live_action,
+    result: @result,
+    return_to: Routes.result_show_path(@socket, :show, @result) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @result.name %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @result.time %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.result_show_path(@socket, :edit, @result), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.result_index_path(@socket, :index) %></span>
