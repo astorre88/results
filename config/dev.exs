@@ -74,3 +74,8 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :results, Results.Worker,
+  python: "/Users/astorre/miniconda3/envs/py37/bin/python",
+  detect_script: "/Users/astorre/phoenix/results/python_scripts/detect.py",
+  model: {:system, "YOLO_MODEL"}

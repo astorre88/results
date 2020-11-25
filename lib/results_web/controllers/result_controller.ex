@@ -20,6 +20,23 @@ defmodule ResultsWeb.ResultController do
     end
   end
 
+  def create(conn, %{"photo" => %Plug.Upload{} = photo} = params) do
+    data = File.read!(photo.path)
+
+    detection =
+      Results.Worker
+      |> Results.Worker.request_detection(data)
+      |> Results.Worker.await()
+      |> IO.inspect(label: "Detection")
+
+    with {:ok, %Result{} = result} <- Timeline.create_result(params) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", Routes.result_path(conn, :show, result))
+      |> render("show.json", result: result)
+    end
+  end
+
   def show(conn, %{"id" => id}) do
     result = Timeline.get_result!(id)
     render(conn, "show.json", result: result)
