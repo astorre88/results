@@ -76,6 +76,6 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :results, Results.Worker,
-  python: "/Users/astorre/miniconda3/envs/py37/bin/python",
-  detect_script: "/Users/astorre/phoenix/results/python_scripts/detect.py",
+  python: "/Users/astorre/miniconda3/bin/python",
+  recognize_script: "/Users/astorre/phoenix/results/python_scripts/recognize.py",
   model: {:system, "YOLO_MODEL"}

@@ -11,7 +11,7 @@ defmodule Results.Worker do
     port =
       Port.open(
         {:spawn_executable, config.python},
-        [:binary, :nouse_stdio, {:packet, 4}, args: [config.detect_script, config.model]]
+        [:binary, :nouse_stdio, {:packet, 4}, args: [config.recognize_script, config.model]]
       )
 
     {:ok, %{port: port, requests: %{}}}
@@ -19,7 +19,7 @@ defmodule Results.Worker do
 
   @default_config [
     python: "python",
-    detect_script: "python_scripts/detect.py",
+    recognize_script: "python_scripts/recognize.py",
     model: "yolov3"
   ]
 
@@ -72,17 +72,8 @@ defmodule Results.Worker do
 
     %{
       shape: %{width: result["shape"]["width"], height: result["shape"]["height"]},
-      objects: get_objects(result["labels"], result["boxes"])
+      names: result["names"]
     }
-  end
-
-  def get_objects(labels, boxes) do
-    Enum.zip(labels, boxes)
-    |> Enum.map(fn {label, [x, y, bottom_right_x, bottom_right_y]} ->
-      w = bottom_right_x - x
-      h = bottom_right_y - y
-      %{label: label, x: x, y: y, w: w, h: h}
-    end)
   end
 
   def await(image_id, timeout \\ 5_000) do

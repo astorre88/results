@@ -23,13 +23,15 @@ defmodule ResultsWeb.ResultController do
   def create(conn, %{"photo" => %Plug.Upload{} = photo} = params) do
     data = File.read!(photo.path)
 
-    detection =
-      Results.Worker
-      |> Results.Worker.request_detection(data)
-      |> Results.Worker.await()
-      |> IO.inspect(label: "Detection")
+    name =
+      case Results.Worker
+           |> Results.Worker.request_detection(data)
+           |> Results.Worker.await() do
+        %{names: [name | _]} -> name
+        _ -> ""
+      end
 
-    with {:ok, %Result{} = result} <- Timeline.create_result(params) do
+    with {:ok, %Result{} = result} <- params |> Map.put("name", name) |> Timeline.create_result() do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.result_path(conn, :show, result))
