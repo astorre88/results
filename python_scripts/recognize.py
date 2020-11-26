@@ -72,11 +72,11 @@ def write_result(output, image_id, image_shape, names):
     output.flush()
 
 
-def run(model):
+def run(model, encodings):
     input_f, output_f = setup_io()
 
     print("[INFO] loading encodings...")
-    data = pickle.loads(open("/Users/astorre/python/face_recog/encodings.pickle", "rb").read())
+    data = pickle.loads(open(encodings, "rb").read())
 
     while True:
         msg = read_message(input_f)
@@ -98,5 +98,6 @@ if __name__ == "__main__":
     model = "yolov3"
     if len(sys.argv) > 1:
         model = sys.argv[1]
+        encodings = sys.argv[2]
 
-    run(model)
+    run(model, encodings)

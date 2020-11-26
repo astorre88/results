@@ -15,4 +15,5 @@ config :logger, level: :info
 config :results, Results.Worker,
   python: "/home/deploy/anaconda3/envs/py37/bin/python",
   recognize_script: "/home/deploy/results/builds/python_scripts/recognize.py",
+  encodings: "/home/deploy/results/builds/python_scripts/encodings.pickle",
   model: {:system, "YOLO_MODEL"}

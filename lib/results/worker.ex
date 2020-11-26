@@ -11,7 +11,12 @@ defmodule Results.Worker do
     port =
       Port.open(
         {:spawn_executable, config.python},
-        [:binary, :nouse_stdio, {:packet, 4}, args: [config.recognize_script, config.model]]
+        [
+          :binary,
+          :nouse_stdio,
+          {:packet, 4},
+          args: [config.recognize_script, config.model, config.encodings]
+        ]
       )
 
     {:ok, %{port: port, requests: %{}}}

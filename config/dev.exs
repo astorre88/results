@@ -78,4 +78,5 @@ config :phoenix, :plug_init_mode, :runtime
 config :results, Results.Worker,
   python: "/Users/astorre/miniconda3/bin/python",
   recognize_script: "/Users/astorre/phoenix/results/python_scripts/recognize.py",
+  encodings: "/Users/astorre/phoenix/results/python_scripts/encodings.pickle",
   model: {:system, "YOLO_MODEL"}
