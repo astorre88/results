@@ -28,7 +28,7 @@ defmodule ResultsWeb.ResultController do
            |> Results.Worker.request_detection(data)
            |> Results.Worker.await() do
         %{names: [name | _]} -> name
-        _ -> ""
+        _ -> "Unrecognized"
       end
 
     with {:ok, %Result{} = result} <- params |> Map.put("name", name) |> Timeline.create_result() do
