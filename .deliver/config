@@ -8,6 +8,8 @@ PRODUCTION_HOSTS="run-recog"
 PRODUCTION_USER="deploy"
 DELIVER_TO="/home/deploy/results"
 
+AUTO_VERSION=commit-count+git-revision+branch-unless-master
+
 pre_erlang_clean_compile() {
  status "Installing NPM dependencies"
  __sync_remote "
