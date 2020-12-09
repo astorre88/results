@@ -13,7 +13,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Time</th>
+      <th>Phone Time</th>
+      <th>Controller Time</th>
 
       <th></th>
     </tr>
@@ -22,7 +23,8 @@
     <%= for result <- @results do %>
       <tr id="result-<%= result.id %>">
         <td><%= result.name %></td>
-        <td><%= result.time %></td>
+        <td><%= result.phone_time %></td>
+        <td><%= result.controller_time %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.result_show_path(@socket, :show, result) %></span>

@@ -6,9 +6,9 @@ defmodule Results.TimelineTest do
   describe "results" do
     alias Results.Timeline.Result
 
-    @valid_attrs %{name: "some name", time: 42}
-    @update_attrs %{name: "some updated name", time: 43}
-    @invalid_attrs %{name: nil, time: nil}
+    @valid_attrs %{name: "some name", phone_time: 42, controller_time: 42}
+    @update_attrs %{name: "some updated name", phone_time: 43, controller_time: 43}
+    @invalid_attrs %{name: nil, phone_time: nil, controller_time: nil}
 
     def result_fixture(attrs \\ %{}) do
       {:ok, result} =
@@ -32,7 +32,7 @@ defmodule Results.TimelineTest do
     test "create_result/1 with valid data creates a result" do
       assert {:ok, %Result{} = result} = Timeline.create_result(@valid_attrs)
       assert result.name == "some name"
-      assert result.time == 42
+      assert result.phone_time == 42
     end
 
     test "create_result/1 with invalid data returns error changeset" do
@@ -43,7 +43,7 @@ defmodule Results.TimelineTest do
       result = result_fixture()
       assert {:ok, %Result{} = result} = Timeline.update_result(result, @update_attrs)
       assert result.name == "some updated name"
-      assert result.time == 43
+      assert result.phone_time == 43
     end
 
     test "update_result/2 with invalid data returns error changeset" do

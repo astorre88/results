@@ -11,6 +11,11 @@ defmodule ResultsWeb.ResultView do
   end
 
   def render("result.json", %{result: result}) do
-    %{id: result.id, name: result.name, time: result.time}
+    %{
+      id: result.id,
+      name: result.name,
+      phone_time: result.phone_time,
+      controller_time: result.controller_time
+    }
   end
 end
