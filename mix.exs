@@ -20,7 +20,7 @@ defmodule Results.MixProject do
   def application do
     [
       mod: {Results.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -48,8 +48,11 @@ defmodule Results.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:elixir_uuid, "~> 1.2"},
+      {:tzdata, "~> 1.0.5"},
+      {:timex, "~> 3.6"},
       {:edeliver, ">= 1.6.0"},
-      {:distillery, "~> 2.1"}
+      {:distillery, "~> 2.1"},
+      {:ecto_psql_extras, "~> 0.2"}
     ]
   end
 

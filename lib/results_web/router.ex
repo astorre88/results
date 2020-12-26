@@ -17,10 +17,7 @@ defmodule ResultsWeb.Router do
   scope "/", ResultsWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-
-    live "/results", ResultLive.Index, :index
-    live "/results/new", ResultLive.Index, :new
+    live "/", ResultLive.Index, :index
     live "/results/:id/edit", ResultLive.Index, :edit
 
     live "/results/:id", ResultLive.Show, :show
@@ -49,7 +46,7 @@ defmodule ResultsWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: ResultsWeb.Telemetry
+      live_dashboard "/dashboard", metrics: ResultsWeb.Telemetry, ecto_repos: [Results.Repo]
     end
   end
 end

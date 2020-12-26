@@ -22,12 +22,6 @@ defmodule ResultsWeb.ResultLive.Index do
     |> assign(:result, Timeline.get_result!(id))
   end
 
-  defp apply_action(socket, :new, _params) do
-    socket
-    |> assign(:page_title, "New Result")
-    |> assign(:result, %Result{})
-  end
-
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Results")
@@ -38,6 +32,13 @@ defmodule ResultsWeb.ResultLive.Index do
   def handle_event("delete", %{"id" => id}, socket) do
     result = Timeline.get_result!(id)
     {:ok, _} = Timeline.delete_result(result)
+
+    {:noreply, assign(socket, :results, list_results())}
+  end
+
+  @impl true
+  def handle_event("clean", _params, socket) do
+    {:ok, _} = Timeline.delete_all_results()
 
     {:noreply, assign(socket, :results, list_results())}
   end

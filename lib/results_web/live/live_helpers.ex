@@ -20,4 +20,11 @@ defmodule ResultsWeb.LiveHelpers do
     modal_opts = [id: :modal, return_to: path, component: component, opts: opts]
     live_component(socket, ResultsWeb.ModalComponent, modal_opts)
   end
+
+  def format_time(time),
+    do:
+      (time &&
+         DateTime.from_unix!(time)
+         |> DateTime.shift_zone!("Europe/Moscow")
+         |> Timex.format!("{h24}:{m}:{s} {YYYY}-{0M}-{0D}")) || "no time"
 end

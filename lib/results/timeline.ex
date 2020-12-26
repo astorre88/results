@@ -93,6 +93,22 @@ defmodule Results.Timeline do
   end
 
   @doc """
+  Deletes all results.
+
+  ## Examples
+
+      iex> delete_all_results()
+      {1, nil}
+
+      iex> delete_all_results()
+      {0, nil}
+
+  """
+  def delete_all_results() do
+    Repo.delete_all(Result)
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking result changes.
 
   ## Examples

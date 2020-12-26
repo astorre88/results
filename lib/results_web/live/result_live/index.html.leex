@@ -23,8 +23,8 @@
     <%= for result <- @results do %>
       <tr id="result-<%= result.id %>">
         <td><%= result.name %></td>
-        <td><%= result.phone_time %></td>
-        <td><%= result.controller_time %></td>
+        <td><%= format_time(result.phone_time) %></td>
+        <td><%= format_time(result.controller_time) %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.result_show_path(@socket, :show, result) %></span>
@@ -36,4 +36,4 @@
   </tbody>
 </table>
 
-<span><%= live_patch "New Result", to: Routes.result_index_path(@socket, :new) %></span>
+<span><%= link "Clean", to: "#", phx_click: "clean", data: [confirm: "Are you sure?"] %></span>
