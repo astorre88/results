@@ -2,6 +2,9 @@ defmodule ResultsWeb.Router do
   use ResultsWeb, :router
 
   import ResultsWeb.UserAuth
+  import Phoenix.LiveDashboard.Router
+
+  alias ResultsWeb.EnsureRolePlug
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +14,14 @@ defmodule ResultsWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+  end
+
+  pipeline :user do
+    plug EnsureRolePlug, [:admin, :user]
+  end
+
+  pipeline :admin do
+    plug EnsureRolePlug, :admin
   end
 
   pipeline :api do
@@ -24,22 +35,6 @@ defmodule ResultsWeb.Router do
       scope "/results" do
         resources("/", ResultController)
       end
-    end
-  end
-
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
-
-    scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: ResultsWeb.Telemetry, ecto_repos: [Results.Repo]
     end
   end
 
@@ -79,5 +74,11 @@ defmodule ResultsWeb.Router do
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :confirm
+  end
+
+  scope "/", ResultsWeb do
+    pipe_through [:browser, :require_authenticated_user, :admin]
+
+    live_dashboard "/dashboard", metrics: ResultsWeb.Telemetry, ecto_repos: [Results.Repo]
   end
 end
