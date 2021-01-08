@@ -2,10 +2,10 @@ defmodule ResultsWeb.ResultLive.Index do
   use ResultsWeb, :live_view
 
   alias Results.Timeline
-  alias Results.Timeline.Result
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    socket = assign_defaults(session, socket)
     if connected?(socket), do: Timeline.subscribe()
 
     {:ok, assign(socket, :results, list_results())}

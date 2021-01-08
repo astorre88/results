@@ -6,13 +6,15 @@ defmodule ResultsWeb.ResultControllerTest do
 
   @create_attrs %{
     name: "some name",
-    time: 42
+    phone_time: 42,
+    controller_time: 42
   }
   @update_attrs %{
     name: "some updated name",
-    time: 43
+    phone_time: 43,
+    controller_time: 43
   }
-  @invalid_attrs %{name: nil, time: nil}
+  @invalid_attrs %{name: nil, phone_time: nil, controller_time: nil}
 
   def fixture(:result) do
     {:ok, result} = Timeline.create_result(@create_attrs)
@@ -38,9 +40,10 @@ defmodule ResultsWeb.ResultControllerTest do
       conn = get(conn, Routes.result_path(conn, :show, id))
 
       assert %{
-               "id" => id,
+               "id" => _,
                "name" => "some name",
-               "time" => 42
+               "phone_time" => 42,
+               "controller_time" => 42
              } = json_response(conn, 200)["data"]
     end
 
@@ -60,9 +63,10 @@ defmodule ResultsWeb.ResultControllerTest do
       conn = get(conn, Routes.result_path(conn, :show, id))
 
       assert %{
-               "id" => id,
+               "id" => _,
                "name" => "some updated name",
-               "time" => 43
+               "phone_time" => 43,
+               "controller_time" => 43
              } = json_response(conn, 200)["data"]
     end
 

@@ -14,10 +14,13 @@ defmodule Results.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Results.PubSub},
       # Start the Endpoint (http/https)
-      ResultsWeb.Endpoint,
-      # Start a worker by calling: Results.Worker.start_link(arg)
-      {Results.Worker, [name: Results.Worker]}
+      ResultsWeb.Endpoint
     ]
+
+    children =
+      if Mix.env() != :test,
+        do: children ++ [{Results.Worker, [name: Results.Worker]}],
+        else: children
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

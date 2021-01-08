@@ -48,6 +48,7 @@ defmodule ResultsWeb do
         layout: {ResultsWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
+      import ResultsWeb.LiveHelpers
     end
   end
 
