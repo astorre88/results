@@ -12,6 +12,8 @@ config :results, ResultsWeb.Endpoint,
 
 config :logger, level: :info
 
+config :results, start_worker: true
+
 config :results, Results.Worker,
   python: "/home/deploy/anaconda3/envs/py37/bin/python",
   recognize_script: "/home/deploy/results/builds/python_scripts/recognize.py",

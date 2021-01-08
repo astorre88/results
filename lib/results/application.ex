@@ -18,7 +18,7 @@ defmodule Results.Application do
     ]
 
     children =
-      if Mix.env() != :test,
+      if Application.get_env(:results, :start_worker),
         do: children ++ [{Results.Worker, [name: Results.Worker]}],
         else: children
 

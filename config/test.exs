@@ -24,6 +24,8 @@ config :results, ResultsWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :results, start_worker: false
+
 config :results, Results.Worker,
   python: "/Users/astorre/miniconda3/bin/python",
   recognize_script: "/Users/astorre/phoenix/results/python_scripts/recognize.py",

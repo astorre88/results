@@ -75,6 +75,8 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
+config :results, start_worker: true
+
 config :results, Results.Worker,
   python: "/Users/astorre/miniconda3/bin/python",
   recognize_script: "/Users/astorre/phoenix/results/python_scripts/recognize.py",
