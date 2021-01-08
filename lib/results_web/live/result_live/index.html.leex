@@ -9,6 +9,8 @@
     return_to: Routes.result_index_path(@socket, :index) %>
 <% end %>
 
+<span><%= link "Clean", to: "#", phx_click: "clean", data: [confirm: "Are you sure?"] %></span>
+
 <table>
   <thead>
     <tr>
@@ -35,5 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-<span><%= link "Clean", to: "#", phx_click: "clean", data: [confirm: "Are you sure?"] %></span>
